@@ -56,7 +56,7 @@ public class MP3PlayerView extends JFrame
 	private MP3PlayerModel model;
 	
 	
-	public MP3PlayerView(MP3PlayerModel model, Library lib)
+	public MP3PlayerView(MP3PlayerModel model, Library lib, PlayList playList)
 	{
 		this.model = model;
 		
@@ -73,16 +73,12 @@ public class MP3PlayerView extends JFrame
 		randomButton = new RandomButton();
 		browseButton = new BrowseButton();
 		
-		libraryComboBox = new LibraryComboBox(lib);
-		browseButton.addActionListener(new BrowseButtonListener(this, model, browseButton, libraryComboBox));
+		libraryComboBox = new LibraryComboBox(lib, playList, model);
 		JPanel topPanel = new JPanel(new BorderLayout());
 		topPanel.add(browseButton, BorderLayout.NORTH);
 		topPanel.add(libraryComboBox, BorderLayout.SOUTH);
 		
 		add(topPanel, BorderLayout.NORTH);
-		
-		playButton.addActionListener(new PlayButtonListener(this, model, playButton, libraryComboBox));
-	
 		
 		buttonPanel.add(previousButton);
 		buttonPanel.add(playButton);
@@ -97,6 +93,12 @@ public class MP3PlayerView extends JFrame
 		southPanel.add(seekBar);
 
 		add(southPanel, BorderLayout.SOUTH);
+		
+		model.setSeekBar(seekBar);
+		browseButton.addActionListener(new BrowseButtonListener(this, model, browseButton, libraryComboBox));
+		playButton.addActionListener(new PlayButtonListener(this, model, playButton, libraryComboBox));
+		nextButton.addActionListener(new NextButtonListener(this, model, nextButton, libraryComboBox));
+		previousButton.addActionListener(new PreviousButtonListener(this, model, previousButton, libraryComboBox));
 		
 
 		setTitle("MP3 Player");

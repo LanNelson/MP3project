@@ -57,7 +57,7 @@ public class PlayButtonListener implements ActionListener
 				model.pause();
 				break;
 			case STOPPED:
-				model.play(selectedSong);
+				model.play();
 				break;
 			case PAUSED:
 				model.resume();

@@ -34,6 +34,7 @@ import java.util.ArrayList;
 public class Library extends SongList
 {
 	private ArrayList<Song> songs; // has many songs
+	private LibraryComboBox comboBox;
 
 	public Library()
 	{
@@ -46,6 +47,10 @@ public class Library extends SongList
 	{
 		return songs.toString();
 	}
+	
+	public void setView(LibraryComboBox comboBox) {
+		this.comboBox = comboBox;
+	}
 
 	@Override
 	public void addSong(String fileWav)
@@ -57,6 +62,7 @@ public class Library extends SongList
         String title = name.substring(0, dashIndex).trim();
         String artist = name.substring(dashIndex + 1).trim();
 		songs.add(new Song(title, artist, fileWav));
+		comboBox.updateSongs();
 	}
 
 	@Override

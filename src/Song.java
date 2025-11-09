@@ -57,6 +57,10 @@ public class Song implements Playable
 	{
 		return title + " - " + artist;
 	}
+	
+	public Clip getClip() {
+		return clip;
+	}
 
 	private void loadClip()
 	{

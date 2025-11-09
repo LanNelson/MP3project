@@ -42,8 +42,13 @@ public class PlayList extends SongList
 	@Override
 	public void addSong(String fileWav)
 	{
-		// TODO Auto-generated method stub
-		
+		int lastSlash = fileWav.lastIndexOf('/');
+        int dotIndex = fileWav.lastIndexOf('.');
+        String name = fileWav.substring(lastSlash + 1, dotIndex);
+        int dashIndex = name.indexOf('-');
+        String title = name.substring(0, dashIndex).trim();
+        String artist = name.substring(dashIndex + 1).trim();
+		songs.add(new Song(title, artist, fileWav));		
 	}
 
 	@Override

@@ -38,20 +38,13 @@ public class MP3PlayerModel
 	private PlayList playList;
 	private Library lib;
 	private Song currentSong;
-	public enum State {
-		PLAYING,
-		PAUSED,
-		STOPPED
-	}
-
+	private String selectedSong;
 	private State currentState = State.STOPPED;
-	
-	/**
-	 * @return the currentState
-	 */
-	public State getCurrentState()
+	private SeekBar seekBar;
+
+	public enum State
 	{
-		return currentState;
+		PLAYING, PAUSED, STOPPED
 	}
 
 	/**
@@ -62,62 +55,123 @@ public class MP3PlayerModel
 		this.currentState = currentState;
 	}
 
-	public MP3PlayerModel(Library lib)
+	public MP3PlayerModel(Library lib, PlayList playList)
 	{
 		this.lib = lib;
-		this.playList = new PlayList(lib);
+		this.playList = playList;
 	}
 
-	public void play(String songName) {
-        // get the song only once and remember it
-		
-        currentSong = playList.getCurrentSong(songName);
-        if (currentSong != null) {
-            currentSong.play();
-            setCurrentState(State.PLAYING);
-        } else {
-            System.out.println("Song not found: " + songName);
-        }
-    }
+	public void setSeekBar(SeekBar seekBar)
+	{
+		this.seekBar = seekBar;
+	}
 
-    public void pause() {
-        if (currentSong != null) {
-        	
-            currentSong.pause();
-            setCurrentState(State.PAUSED);
-        } else {
-            System.out.println("No song is currently playing.");
-        }
-    }
+	public void setSelectedSong(String selectedSong)
+	{
+		this.selectedSong = selectedSong;
+	}
 
-    public void resume() {
-        if (currentSong != null) {
-            currentSong.resume();
-            setCurrentState(State.PLAYING);
-        } else {
-            System.out.println("No song to resume.");
-        }
-    }
+	public void play()
+	{
+		// get the song only once and remember it
 
-    public void stop() {
-        if (currentSong != null) {
-            currentSong.stop();
-            setCurrentState(State.STOPPED);
-        } else {
-            System.out.println("No song to stop.");
-        }
-    }
+		currentSong = playList.getCurrentSong(selectedSong);
+		if (currentSong != null)
+		{
+			currentSong.play();
+			setCurrentState(State.PLAYING);
+			if (seekBar != null)
+			{
+				seekBar.setClip(currentSong.getClip());
+				seekBar.enableUserSeek();
+				seekBar.startSync();
+			}
+		}
+		else
+		{
+			System.out.println("Song not found: " + selectedSong);
+		}
+	}
+
+	public void pause()
+	{
+		if (currentSong != null)
+		{
+
+			currentSong.pause();
+			setCurrentState(State.PAUSED);
+			if (seekBar != null)
+			{
+				seekBar.stopSync();
+			}
+		}
+		else
+		{
+			System.out.println("No song is currently playing.");
+		}
+	}
+
+	public void resume()
+	{
+		if (currentSong != null)
+		{
+			currentSong.resume();
+			setCurrentState(State.PLAYING);
+			if (seekBar != null)
+			{
+				seekBar.setClip(currentSong.getClip());
+			}
+		}
+		else
+		{
+			System.out.println("No song to resume.");
+		}
+	}
+
+	public void stop()
+	{
+		if (currentSong != null)
+		{
+			currentSong.stop();
+			setCurrentState(State.STOPPED);
+			if (seekBar != null)
+			{
+				seekBar.stopSync();
+				seekBar.setValue(0);
+			}
+		}
+		else
+		{
+			System.out.println("No song to stop.");
+		}
+	}
 
 	/**
-	 * Purpose: 
+	 * @return the currentState
+	 */
+	public State getCurrentState()
+	{
+		return currentState;
+	}
+
+	/**
+	 * Purpose:
+	 * 
 	 * @return
 	 */
 	public Library getLibrary()
 	{
-		
 		return this.lib;
 	}
+
+	/**
+	 * Purpose:
+	 * 
+	 * @return
+	 */
+	public PlayList getPlayList()
+	{
+		// TODO Auto-generated method stub
+		return playList;
+	}
 }
-
-	
-

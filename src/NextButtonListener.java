@@ -17,51 +17,47 @@
  *
  *         <<Add more references here>>
  *
- *         Version: 2025-10-30
+ *         Version: 2025-11-08
  */
 package src;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-
-import javax.swing.JFileChooser;
 
 /**
- * Purpose: The reponsibility of BrowseButtonListener is ...
+ * Purpose: The reponsibility of NextButtonListener is ...
  *
- * BrowseButtonListener is-a ...
- * BrowseButtonListener is ...
+ * NextButtonListener is-a ...
+ * NextButtonListener is ...
  */
-public class BrowseButtonListener implements ActionListener
+public class NextButtonListener implements ActionListener
 {
 	private MP3PlayerView view;
 	private MP3PlayerModel model;
-	private BrowseButton browseButton;
+	private NextButton nextButton;
 	private LibraryComboBox libraryComboBox;
 
-	public BrowseButtonListener(MP3PlayerView view, MP3PlayerModel model,
-			BrowseButton browseButton, LibraryComboBox libraryComboBox)
+	public NextButtonListener(MP3PlayerView view, MP3PlayerModel model,
+			NextButton nextButton, LibraryComboBox libraryComboBox)
 	{
 		this.view = view;
 		this.model = model;
-		this.browseButton = browseButton;
+		this.nextButton = nextButton;
 		this.libraryComboBox = libraryComboBox;
-		
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		JFileChooser fileChooser = new JFileChooser();
-		int response = fileChooser.showOpenDialog(null);
-		
-		if (response == JFileChooser.APPROVE_OPTION)
+		int currentIndex = libraryComboBox.getSelectedIndex();
+		int totalItems = libraryComboBox.getItemCount();
+
+		if (totalItems > 0)
 		{
-			File wavFile = new File(fileChooser.getSelectedFile().getAbsolutePath());
-			model.getLibrary().addSong(wavFile.toString());
-			model.getPlayList().addSong(wavFile.toString());
+			int nextIndex = (currentIndex + 1) % totalItems;
+			libraryComboBox.setSelectedIndex(nextIndex);
 		}
+		model.play();
 	}
 
 }
