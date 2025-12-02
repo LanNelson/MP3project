@@ -38,4 +38,5 @@ public class NextButton extends JButton
 		this.setMaximumSize(new Dimension(60,30));
 		setFocusable(false);
 	}
+
 }

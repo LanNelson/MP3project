@@ -52,14 +52,13 @@ public class MP3PlayerView extends JFrame
 	private NextButton nextButton;
 	private RandomButton randomButton;
 	private BrowseButton browseButton;
-	private LibraryComboBox libraryComboBox;
+	private PlayListComboBox playListComboBox;
 	private MP3PlayerModel model;
-	
-	
+
 	public MP3PlayerView(MP3PlayerModel model, Library lib, PlayList playList)
 	{
 		this.model = model;
-		
+
 		JPanel southPanel = new JPanel();
 		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.Y_AXIS));
 		// add buttons
@@ -72,19 +71,18 @@ public class MP3PlayerView extends JFrame
 		nextButton = new NextButton();
 		randomButton = new RandomButton();
 		browseButton = new BrowseButton();
-		
-		libraryComboBox = new LibraryComboBox(lib, playList, model);
+
+		playListComboBox = new PlayListComboBox(lib, playList, model);
 		JPanel topPanel = new JPanel(new BorderLayout());
 		topPanel.add(browseButton, BorderLayout.NORTH);
-		topPanel.add(libraryComboBox, BorderLayout.SOUTH);
-		
+		topPanel.add(playListComboBox, BorderLayout.SOUTH);
+
 		add(topPanel, BorderLayout.NORTH);
-		
+
 		buttonPanel.add(previousButton);
 		buttonPanel.add(playButton);
 		buttonPanel.add(nextButton);
 		buttonPanel.add(randomButton);
-		
 
 		southPanel.add(buttonPanel);
 
@@ -93,19 +91,47 @@ public class MP3PlayerView extends JFrame
 		southPanel.add(seekBar);
 
 		add(southPanel, BorderLayout.SOUTH);
-		
+
+		playList.setComboBox(playListComboBox);
+
 		model.setSeekBar(seekBar);
-		browseButton.addActionListener(new BrowseButtonListener(this, model, browseButton, libraryComboBox));
-		playButton.addActionListener(new PlayButtonListener(this, model, playButton, libraryComboBox));
-		nextButton.addActionListener(new NextButtonListener(this, model, nextButton, libraryComboBox));
-		previousButton.addActionListener(new PreviousButtonListener(this, model, previousButton, libraryComboBox));
-		
+		browseButton.addActionListener(new BrowseButtonListener(this, model,
+				browseButton, playListComboBox));
+		playButton.addActionListener(new PlayButtonListener(this, model,
+				playButton, playListComboBox));
+
+		NextButtonListener nextListener = new NextButtonListener(this, model,
+				nextButton, playListComboBox);
+		nextButton.addActionListener(nextListener);
+		nextListener.setPlayButton(playButton);
+		seekBar.setNextButton(nextButton);
+
+		PreviousButtonListener previousListener = new PreviousButtonListener(
+				this, model, previousButton, playListComboBox);
+		previousButton.addActionListener(previousListener);
+		previousListener.setPlayButton(playButton);
+
+		RandomButtonListener randomListener = new RandomButtonListener(this,
+				model, randomButton, playList);
+		randomButton.addActionListener(randomListener);
 
 		setTitle("MP3 Player");
 		setVisible(true);
 		setSize(400, 600);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		// TODO: remove this hardcoded song addition later
+//		File wavFile = new File("Songs/Lose my mind-Don Tolive.wav");
+//		model.getLibrary().addSong(wavFile.toString());
+//		model.getPlayList().addSong(wavFile.toString());
+//		File wavFile1 = new File("Songs/黑洞里-方大同.wav");
+//		model.getLibrary().addSong(wavFile1.toString());
+//		model.getPlayList().addSong(wavFile1.toString());
+	}
 
+	public void clickNext()
+	{
+		nextButton.doClick();
 	}
 
 }

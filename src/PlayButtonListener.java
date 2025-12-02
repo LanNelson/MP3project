@@ -35,21 +35,21 @@ public class PlayButtonListener implements ActionListener
 	private MP3PlayerView view;
 	private MP3PlayerModel model;
 	private PlayButton playButton;
-	private LibraryComboBox libraryComboBox;
+	private PlayListComboBox playListComboBox;
 
 	public PlayButtonListener(MP3PlayerView view, MP3PlayerModel model,
-			PlayButton playButton, LibraryComboBox libraryComboBox)
+			PlayButton playButton, PlayListComboBox playListComboBox)
 	{
 		this.view = view;
 		this.model = model;
 		this.playButton = playButton;
-		this.libraryComboBox = libraryComboBox;
+		this.playListComboBox = playListComboBox;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		String selectedSong = libraryComboBox.getSelectedSong();
+		String selectedSong = playListComboBox.getSelectedSong();
 
 		switch (model.getCurrentState())
 		{

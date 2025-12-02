@@ -19,8 +19,7 @@
 */
 package src;
 
-import java.io.File;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Purpose: The reponsibility of SongList is ...
@@ -28,15 +27,12 @@ import java.util.ArrayList;
  * SongList is-a ...
  * SongList is ...
  */
-public abstract class SongList
+public interface SongList
 {
-	public SongList(){
-		
-	}
 	
-	abstract public void addSong(String fileWav);
+	public void addSong(String fileWav);
 	
-	abstract public void removeSong(Song song);
+	public void removeSong(Song song);
 	
-	abstract public ArrayList<Song> getSongs();
+	public List<Song> getSongs();
 }

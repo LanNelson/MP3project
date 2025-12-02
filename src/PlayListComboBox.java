@@ -32,13 +32,14 @@ import javax.swing.JComboBox;
  * LibraryComboBox is-a ...
  * LibraryComboBox is ...
  */
-public class LibraryComboBox extends JComboBox implements ActionListener
+public class PlayListComboBox extends JComboBox implements ActionListener
 {
 	private Library lib;
 	private PlayList playList;
 	private MP3PlayerModel model;
 
-	public LibraryComboBox(Library lib, PlayList playList, MP3PlayerModel model)
+	public PlayListComboBox(Library lib, PlayList playList,
+			MP3PlayerModel model)
 	{
 		this.lib = lib;
 		this.playList = playList;
@@ -59,17 +60,35 @@ public class LibraryComboBox extends JComboBox implements ActionListener
 
 	public String getSelectedSong()
 	{
+		if (this.getSelectedItem() == null)
+		{
+			return "";
+		}
 		return this.getSelectedItem().toString();
 	}
+	
+	
 
 	public void updateSongs()
 	{
-
 		this.addItem(playList.getSongs().get(playList.getSongs().size() - 1));
 
 	}
-	
 
+	public void updateShuffle()
+	{
+	    this.removeAllItems();
+	    
+		for (int i = 0; i < playList.getSongs().size(); i++)
+		{
+			this.addItem(playList.getSongs().get(i));
+		}
+	}
+
+
+	/**
+	 * when user do something to the combo box, this will trigger
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{

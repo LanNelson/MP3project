@@ -38,15 +38,15 @@ public class BrowseButtonListener implements ActionListener
 	private MP3PlayerView view;
 	private MP3PlayerModel model;
 	private BrowseButton browseButton;
-	private LibraryComboBox libraryComboBox;
+	private PlayListComboBox playListComboBox;
 
 	public BrowseButtonListener(MP3PlayerView view, MP3PlayerModel model,
-			BrowseButton browseButton, LibraryComboBox libraryComboBox)
+			BrowseButton browseButton, PlayListComboBox playListComboBox)
 	{
 		this.view = view;
 		this.model = model;
 		this.browseButton = browseButton;
-		this.libraryComboBox = libraryComboBox;
+		this.playListComboBox = playListComboBox;
 		
 	}
 

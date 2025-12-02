@@ -27,13 +27,15 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
+import src.Song.SongListener;
+
 /**
  * Purpose: The reponsibility of MP3PlayerModel is ...
  *
  * MP3PlayerModel is-a ...
  * MP3PlayerModel is ...
  */
-public class MP3PlayerModel
+public class MP3PlayerModel implements SongListener
 {
 	private PlayList playList;
 	private Library lib;
@@ -41,6 +43,8 @@ public class MP3PlayerModel
 	private String selectedSong;
 	private State currentState = State.STOPPED;
 	private SeekBar seekBar;
+	private boolean isPaused = true;
+	private boolean isManualSkiped = false;
 
 	public enum State
 	{
@@ -59,6 +63,14 @@ public class MP3PlayerModel
 	{
 		this.lib = lib;
 		this.playList = playList;
+
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+			if (currentSong != null && currentSong.getClip() != null)
+			{
+				currentSong.getClip().stop();
+				currentSong.getClip().close();
+			}
+		}));
 	}
 
 	public void setSeekBar(SeekBar seekBar)
@@ -69,17 +81,34 @@ public class MP3PlayerModel
 	public void setSelectedSong(String selectedSong)
 	{
 		this.selectedSong = selectedSong;
+		playList.setCurrentSong(selectedSong);
+
+		playList.getCurrentSong().addSongListener(this);
+
+	}
+
+	// currentSong.getClip().getFramePosition() >= currentSong.getClip()
+	// .getFrameLength() - 1000000
+	@Override
+	public void songStopped(Song song)
+	{
+
+		System.out.println(song.getClip().isRunning());
+		if (!song.getClip().isRunning() && !isPaused && !isManualSkiped)
+		{
+			// when the song stops, automatically play the next song
+			next();
+		}
 	}
 
 	public void play()
 	{
-		// get the song only once and remember it
-
-		currentSong = playList.getCurrentSong(selectedSong);
+		currentSong = playList.getCurrentSong();
 		if (currentSong != null)
 		{
 			currentSong.play();
 			setCurrentState(State.PLAYING);
+			isPaused = false;
 			if (seekBar != null)
 			{
 				seekBar.setClip(currentSong.getClip());
@@ -95,11 +124,13 @@ public class MP3PlayerModel
 
 	public void pause()
 	{
+		currentSong = playList.getCurrentSong();
 		if (currentSong != null)
 		{
 
 			currentSong.pause();
 			setCurrentState(State.PAUSED);
+			isPaused = true;
 			if (seekBar != null)
 			{
 				seekBar.stopSync();
@@ -113,10 +144,12 @@ public class MP3PlayerModel
 
 	public void resume()
 	{
+		currentSong = playList.getCurrentSong();
 		if (currentSong != null)
 		{
 			currentSong.resume();
 			setCurrentState(State.PLAYING);
+			isPaused = false;
 			if (seekBar != null)
 			{
 				seekBar.setClip(currentSong.getClip());
@@ -130,6 +163,7 @@ public class MP3PlayerModel
 
 	public void stop()
 	{
+		currentSong = playList.getCurrentSong();
 		if (currentSong != null)
 		{
 			currentSong.stop();
@@ -144,6 +178,38 @@ public class MP3PlayerModel
 		{
 			System.out.println("No song to stop.");
 		}
+	}
+
+	public void next()
+	{
+		isManualSkiped = true;
+
+		currentSong = playList.getCurrentSong();
+		if (currentSong != null)
+		{
+			currentSong.stop();
+		}
+		isPaused = false;
+		playList.next();
+		play();
+
+		isManualSkiped = false;
+	}
+	
+	public void previous()
+	{
+		isManualSkiped = true;
+		
+		currentSong = playList.getCurrentSong();
+		if (currentSong != null)
+		{
+			currentSong.stop();
+		}
+		isPaused = false;
+		playList.previous();
+		play();
+
+		isManualSkiped = false;
 	}
 
 	/**
@@ -171,7 +237,6 @@ public class MP3PlayerModel
 	 */
 	public PlayList getPlayList()
 	{
-		// TODO Auto-generated method stub
 		return playList;
 	}
 }

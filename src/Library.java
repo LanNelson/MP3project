@@ -22,6 +22,8 @@
 package src;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
@@ -31,24 +33,23 @@ import java.util.ArrayList;
  * Library is ...
  * Library has many songs
  */
-public class Library extends SongList
+public class Library implements SongList
 {
 	private ArrayList<Song> songs; // has many songs
-	private LibraryComboBox comboBox;
+	private PlayListComboBox comboBox;
 
 	public Library()
 	{
 		songs = new ArrayList<Song>();
 	}
 
-	
-
 	public String toString()
 	{
 		return songs.toString();
 	}
-	
-	public void setView(LibraryComboBox comboBox) {
+
+	public void setView(PlayListComboBox comboBox)
+	{
 		this.comboBox = comboBox;
 	}
 
@@ -56,28 +57,42 @@ public class Library extends SongList
 	public void addSong(String fileWav)
 	{
 		int lastSlash = fileWav.lastIndexOf('/');
-        int dotIndex = fileWav.lastIndexOf('.');
-        String name = fileWav.substring(lastSlash + 1, dotIndex);
-        int dashIndex = name.indexOf('-');
-        String title = name.substring(0, dashIndex).trim();
-        String artist = name.substring(dashIndex + 1).trim();
+		int dotIndex = fileWav.lastIndexOf('.');
+		String name = fileWav.substring(lastSlash + 1, dotIndex);
+		int dashIndex = name.indexOf('-');
+		String title = name.substring(0, dashIndex).trim();
+		String artist = name.substring(dashIndex + 1).trim();
 		songs.add(new Song(title, artist, fileWav));
-		comboBox.updateSongs();
+		//addSongToFile(fileWav);
+
+	}
+
+	public void addSongToFile(String fileWav)
+	{
+		try
+		{
+			PrintWriter filePrinter = new PrintWriter(
+					new FileWriter(new File("Library.txt"), true));
+			filePrinter.println(fileWav);
+			filePrinter.close();
+		}
+		catch (Exception e)
+		{
+			System.out.println(e);
+		}
 	}
 
 	@Override
 	public void removeSong(Song song)
 	{
-		// TODO Auto-generated method stub
-		
+		songs.remove(song);
+
 	}
-
-
 
 	@Override
 	public ArrayList<Song> getSongs()
 	{
 		return songs;
 	}
-	
+
 }

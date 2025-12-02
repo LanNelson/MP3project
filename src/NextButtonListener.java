@@ -35,29 +35,27 @@ public class NextButtonListener implements ActionListener
 	private MP3PlayerView view;
 	private MP3PlayerModel model;
 	private NextButton nextButton;
-	private LibraryComboBox libraryComboBox;
+	private PlayListComboBox playListComboBox;
+	private PlayButton playButton;
 
 	public NextButtonListener(MP3PlayerView view, MP3PlayerModel model,
-			NextButton nextButton, LibraryComboBox libraryComboBox)
+			NextButton nextButton, PlayListComboBox playListComboBox)
 	{
 		this.view = view;
 		this.model = model;
 		this.nextButton = nextButton;
-		this.libraryComboBox = libraryComboBox;
+		this.playListComboBox = playListComboBox;
+	}
+	
+	public void setPlayButton(PlayButton playButton) {
+		this.playButton = playButton;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		int currentIndex = libraryComboBox.getSelectedIndex();
-		int totalItems = libraryComboBox.getItemCount();
-
-		if (totalItems > 0)
-		{
-			int nextIndex = (currentIndex + 1) % totalItems;
-			libraryComboBox.setSelectedIndex(nextIndex);
-		}
-		model.play();
+		model.next();
+		playButton.setText("Pause");
 	}
 
 }

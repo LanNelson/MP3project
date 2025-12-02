@@ -5,7 +5,7 @@ public class MP3Player
 	public static void main(String[] args)
 	{
 		Library lib = new Library();
-		PlayList playList = new PlayList(lib);
+		PlayList playList = new PlayList();
 		new MP3PlayerView(new MP3PlayerModel(lib,playList), lib, playList);
 	}
 }
