@@ -1,61 +1,64 @@
 /**
  * Lead Author(s):
  * 
- * @author nelson; student ID
- * @author Full name; student ID
- *         <<Add additional lead authors here>>
+ * @author Nelson
+ * 
  *
  *         Other Contributors:
- *         Full name; student ID or contact information if not in class
- *         <<Add additional contributors (mentors, tutors, friends) here, with
- *         contact information>>
+ *         none
  *
  *         References:
  *         Morelli, R., & Walde, R. (2016).
  *         Java, Java, Java: Object-Oriented Problem Solving
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  *
- *         <<Add more references here>>
+ *         Responsibility:
+ *         -To adding song into a file that contain list of songs
  *
- *         Version: 2025-10-09
+ *         Version: 2025-12-9
  */
 package src;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-/**
- * Purpose: The reponsibility of Library is ...
- *
- * Library is-a ...
- * Library is ...
- * Library has many songs
- */
+
 public class Library implements SongList
 {
 	private ArrayList<Song> songs; // has many songs
-	private PlayListComboBox comboBox;
+	private static int seiralNum;
 
+	/**
+	 * 
+	 * Purpose: Constructor of Library, create an array list and text file
+	 */
 	public Library()
 	{
 		songs = new ArrayList<Song>();
+		if (new File("Library.txt").exists())
+		{
+			try
+			{
+				FileWriter fileWriter = new FileWriter("Library.txt");
+			}
+			catch (IOException e)
+			{
+				System.out.println(e);
+			}
+		}
 	}
-
-	public String toString()
-	{
-		return songs.toString();
-	}
-
-	public void setView(PlayListComboBox comboBox)
-	{
-		this.comboBox = comboBox;
-	}
-
+	
+	/**
+	 * Purpose: adding songs into a text file
+	 */
 	@Override
 	public void addSong(String fileWav)
 	{
+		createNewSerialNumber();
+		
 		int lastSlash = fileWav.lastIndexOf('/');
 		int dotIndex = fileWav.lastIndexOf('.');
 		String name = fileWav.substring(lastSlash + 1, dotIndex);
@@ -63,12 +66,18 @@ public class Library implements SongList
 		String title = name.substring(0, dashIndex).trim();
 		String artist = name.substring(dashIndex + 1).trim();
 		songs.add(new Song(title, artist, fileWav));
-		//addSongToFile(fileWav);
+		addSongToFile(seiralNum + ", " + title + "-" + artist);
 
 	}
 
+	/**
+	 * 
+	 * Purpose: 
+	 * @param fileWav
+	 */
 	public void addSongToFile(String fileWav)
 	{
+
 		try
 		{
 			PrintWriter filePrinter = new PrintWriter(
@@ -76,19 +85,19 @@ public class Library implements SongList
 			filePrinter.println(fileWav);
 			filePrinter.close();
 		}
-		catch (Exception e)
+		catch (IOException e)
 		{
 			System.out.println(e);
 		}
 	}
-
-	@Override
-	public void removeSong(Song song)
+	
+	public static int createNewSerialNumber()
 	{
-		songs.remove(song);
-
+		seiralNum++;
+		return seiralNum;
 	}
 
+	
 	@Override
 	public ArrayList<Song> getSongs()
 	{

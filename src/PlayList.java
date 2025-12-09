@@ -58,12 +58,6 @@ public class PlayList implements SongList
 		comboBox.updateSongs();
 	}
 
-	@Override
-	public void removeSong(Song song)
-	{
-		// TODO Auto-generated method stub
-
-	}
 
 	public void shuffleSongs()
 	{
@@ -93,15 +87,20 @@ public class PlayList implements SongList
 
 	public Song getNextSong()
 	{
+		if(songs.isEmpty()) {
+			return null;
+		}
 		int currentIndex = songs.indexOf(currentSong);
 		int nextIndex = (currentIndex + 1) % songs.size();
 		return songs.get(nextIndex);
+		
 	}
 
 	public void next()
-	{
+	{		
 		currentSong = getNextSong();
 		int index = comboBox.getSelectedIndex();
+		System.out.println(songs.size());
 		comboBox.setSelectedIndex((index + 1) % songs.size());
 	}
 
@@ -128,6 +127,9 @@ public class PlayList implements SongList
 	 */
 	public void previous()
 	{
+		if(songs.size()==0) {
+			return;
+		}
 		currentSong = getPrevousSong();
 		int index = comboBox.getSelectedIndex();
 		comboBox.setSelectedIndex((index - 1 + songs.size()) % songs.size());
@@ -140,6 +142,9 @@ public class PlayList implements SongList
 	 */
 	private Song getPrevousSong()
 	{
+		if(songs.isEmpty()) {
+			return null;
+		}
 		int currentIndex = songs.indexOf(currentSong);
 		int nextIndex = (currentIndex - 1 + songs.size()) % songs.size();
 		return songs.get(nextIndex);

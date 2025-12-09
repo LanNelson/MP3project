@@ -1,23 +1,21 @@
 /**
  * Lead Author(s):
  * 
- * @author nelson; student ID
- * @author Full name; student ID
- *         <<Add additional lead authors here>>
+ * @author Nelson
+ * 
  *
  *         Other Contributors:
- *         Full name; student ID or contact information if not in class
- *         <<Add additional contributors (mentors, tutors, friends) here, with
- *         contact information>>
+ *         none
  *
  *         References:
  *         Morelli, R., & Walde, R. (2016).
  *         Java, Java, Java: Object-Oriented Problem Solving
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  *
- *         <<Add more references here>>
+ *         Responsibility:
+ *         -BrowseButtonListener is to do action when ever user click browse button
  *
- *         Version: 2025-10-30
+ *         Version: 2025-12-9
  */
 package src;
 
@@ -27,19 +25,22 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
-/**
- * Purpose: The reponsibility of BrowseButtonListener is ...
- *
- * BrowseButtonListener is-a ...
- * BrowseButtonListener is ...
- */
+
 public class BrowseButtonListener implements ActionListener
 {
-	private MP3PlayerView view;
-	private MP3PlayerModel model;
-	private BrowseButton browseButton;
-	private PlayListComboBox playListComboBox;
+	private MP3PlayerView view; // has a MP3PlayerView
+	private MP3PlayerModel model; // has a MP3PlayerModel
+	private BrowseButton browseButton; // has a BrowseButton
+	private PlayListComboBox playListComboBox; // has a PlayListComboBox
 
+	/**
+	 * 
+	 * Purpose: constructor of BrowseButtonListener
+	 * @param view view of mp3 player
+	 * @param model model of mp3 player
+	 * @param browseButton
+	 * @param playListComboBox 
+	 */
 	public BrowseButtonListener(MP3PlayerView view, MP3PlayerModel model,
 			BrowseButton browseButton, PlayListComboBox playListComboBox)
 	{
@@ -50,6 +51,9 @@ public class BrowseButtonListener implements ActionListener
 		
 	}
 
+	/**
+	 * Purpose: adding file from user's computer into play list
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{

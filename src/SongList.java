@@ -32,7 +32,5 @@ public interface SongList
 	
 	public void addSong(String fileWav);
 	
-	public void removeSong(Song song);
-	
 	public List<Song> getSongs();
 }

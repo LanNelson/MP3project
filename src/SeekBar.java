@@ -22,12 +22,9 @@
 package src;
 
 import java.awt.Dimension;
-import java.io.File;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.JSlider;
 import javax.swing.SwingConstants;
@@ -43,8 +40,8 @@ public class SeekBar extends JSlider
 {
 	private Clip clip;
 	private Timer timer;
-	private long totalLengthMicro;  
-    private NextButton nextButton;
+	private long totalLengthMicro;
+	private NextButton nextButton;
 
 	public SeekBar()
 	{
@@ -52,18 +49,18 @@ public class SeekBar extends JSlider
 		this.setValue(0);
 		this.setPreferredSize(new Dimension(250, 20));
 		this.setMaximumSize(new Dimension(250, 20));
-		
+
 	}
-	
+
 	public void setNextButton(NextButton nextButton)
-    {
-        this.nextButton = nextButton;
-    }
+	{
+		this.nextButton = nextButton;
+	}
 
 	public void setClip(Clip clip)
 	{
 		this.clip = clip;
-		
+
 		if (clip != null)
 		{
 			totalLengthMicro = clip.getMicrosecondLength();
@@ -88,7 +85,7 @@ public class SeekBar extends JSlider
 				if (clip != null && clip.isRunning())
 				{
 					int currentPos = (int) clip.getMicrosecondPosition();
-					
+
 					if (currentPos >= totalLengthMicro)
 					{
 						nextButton.doClick();

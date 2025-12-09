@@ -24,6 +24,7 @@ package src;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 
 /**
@@ -55,7 +56,6 @@ public class PlayListComboBox extends JComboBox implements ActionListener
 		}
 
 		addActionListener(this);
-		lib.setView(this);
 	}
 
 	public String getSelectedSong()
@@ -66,8 +66,6 @@ public class PlayListComboBox extends JComboBox implements ActionListener
 		}
 		return this.getSelectedItem().toString();
 	}
-	
-	
 
 	public void updateSongs()
 	{
@@ -75,16 +73,15 @@ public class PlayListComboBox extends JComboBox implements ActionListener
 
 	}
 
-	public void updateShuffle()
-	{
-	    this.removeAllItems();
-	    
-		for (int i = 0; i < playList.getSongs().size(); i++)
-		{
-			this.addItem(playList.getSongs().get(i));
-		}
-	}
+	public void updateShuffle() {
+	    DefaultComboBoxModel<Song> newModel = new DefaultComboBoxModel<>();
 
+	    for (Song song : playList.getSongs()) {
+	        newModel.addElement(song);
+	    }
+
+	    this.setModel(newModel);
+	}
 
 	/**
 	 * when user do something to the combo box, this will trigger

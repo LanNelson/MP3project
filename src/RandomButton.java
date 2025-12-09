@@ -33,7 +33,7 @@ public class RandomButton extends JButton
 {
 	public RandomButton()
 	{
-		this.setText("Random");
+		this.setText("Ran");
 		this.setPreferredSize(new Dimension(60,30));
 		this.setMaximumSize(new Dimension(60,30));
 		setFocusable(false);

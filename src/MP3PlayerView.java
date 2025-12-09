@@ -22,20 +22,13 @@
 package src;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.io.File;
-import java.io.IOException;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.UnsupportedAudioFileException;
+
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
 
 /**
  * Purpose: The reponsibility of MP3Player is ...
@@ -54,6 +47,7 @@ public class MP3PlayerView extends JFrame
 	private BrowseButton browseButton;
 	private PlayListComboBox playListComboBox;
 	private MP3PlayerModel model;
+	private ImageIcon image;
 
 	public MP3PlayerView(MP3PlayerModel model, Library lib, PlayList playList)
 	{
@@ -78,6 +72,13 @@ public class MP3PlayerView extends JFrame
 		topPanel.add(playListComboBox, BorderLayout.SOUTH);
 
 		add(topPanel, BorderLayout.NORTH);
+
+		image = new ImageIcon("Icon/Icon.png");
+		JLabel imageLabel = new JLabel();
+		imageLabel.setIcon(image);
+		JPanel imagePanel = new JPanel();
+		imagePanel.add(imageLabel);
+		add(imagePanel, BorderLayout.CENTER);
 
 		buttonPanel.add(previousButton);
 		buttonPanel.add(playButton);
@@ -116,22 +117,11 @@ public class MP3PlayerView extends JFrame
 		randomButton.addActionListener(randomListener);
 
 		setTitle("MP3 Player");
+		pack();
 		setVisible(true);
-		setSize(400, 600);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		// TODO: remove this hardcoded song addition later
-//		File wavFile = new File("Songs/Lose my mind-Don Tolive.wav");
-//		model.getLibrary().addSong(wavFile.toString());
-//		model.getPlayList().addSong(wavFile.toString());
-//		File wavFile1 = new File("Songs/黑洞里-方大同.wav");
-//		model.getLibrary().addSong(wavFile1.toString());
-//		model.getPlayList().addSong(wavFile1.toString());
-	}
 
-	public void clickNext()
-	{
-		nextButton.doClick();
 	}
 
 }

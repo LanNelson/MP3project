@@ -21,12 +21,6 @@
  */
 package src;
 
-import java.io.File;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-
 import src.Song.SongListener;
 
 /**
@@ -87,16 +81,12 @@ public class MP3PlayerModel implements SongListener
 
 	}
 
-	// currentSong.getClip().getFramePosition() >= currentSong.getClip()
-	// .getFrameLength() - 1000000
 	@Override
 	public void songStopped(Song song)
 	{
 
-		System.out.println(song.getClip().isRunning());
 		if (!song.getClip().isRunning() && !isPaused && !isManualSkiped)
 		{
-			// when the song stops, automatically play the next song
 			next();
 		}
 	}
@@ -116,10 +106,7 @@ public class MP3PlayerModel implements SongListener
 				seekBar.startSync();
 			}
 		}
-		else
-		{
-			System.out.println("Song not found: " + selectedSong);
-		}
+
 	}
 
 	public void pause()
@@ -136,10 +123,7 @@ public class MP3PlayerModel implements SongListener
 				seekBar.stopSync();
 			}
 		}
-		else
-		{
-			System.out.println("No song is currently playing.");
-		}
+
 	}
 
 	public void resume()
@@ -155,10 +139,7 @@ public class MP3PlayerModel implements SongListener
 				seekBar.setClip(currentSong.getClip());
 			}
 		}
-		else
-		{
-			System.out.println("No song to resume.");
-		}
+
 	}
 
 	public void stop()
@@ -174,10 +155,7 @@ public class MP3PlayerModel implements SongListener
 				seekBar.setValue(0);
 			}
 		}
-		else
-		{
-			System.out.println("No song to stop.");
-		}
+
 	}
 
 	public void next()
@@ -195,11 +173,11 @@ public class MP3PlayerModel implements SongListener
 
 		isManualSkiped = false;
 	}
-	
+
 	public void previous()
 	{
 		isManualSkiped = true;
-		
+
 		currentSong = playList.getCurrentSong();
 		if (currentSong != null)
 		{

@@ -21,10 +21,7 @@
  */
 package src;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 
 import javax.swing.JButton;
 
@@ -38,7 +35,7 @@ public class PreviousButton extends JButton
 {
 	public PreviousButton()
 	{
-		this.setText("⏮");
+		this.setText("Prev");
 		this.setPreferredSize(new Dimension(60,30));
 		this.setMaximumSize(new Dimension(60, 30));
 		setFocusable(false);

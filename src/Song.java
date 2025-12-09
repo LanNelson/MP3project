@@ -41,32 +41,33 @@ public class Song implements Playable
 	private String artist;
 	private String filePath;
 	private Clip clip;
-	
+
 	// listeners for song events
 	private final List<SongListener> listeners = new ArrayList<>();
-	
+
 	/**
 	 * Listener interface for song events. Implementors can register to be
 	 * notified when the clip stops.
 	 */
-	public interface SongListener {
+	public interface SongListener
+	{
 		void songStopped(Song song);
 	}
-	
+
 	public Song(String title, String artist, String filePath)
 	{
 		this.title = title;
 		this.artist = artist;
 		this.filePath = filePath;
+
 		loadClip();
 		clip.addLineListener(e -> {
-			if (e.getType() == javax.sound.sampled.LineEvent.Type.STOP) {
-				
-				// notify listeners that playback stopped
+			if (e.getType() == javax.sound.sampled.LineEvent.Type.STOP)
+			{
 				notifySongStopped();
-				//clip.setFramePosition(0); // reset to beginning when done
 			}
 		});
+
 	}
 
 	public String getSong()
@@ -78,8 +79,9 @@ public class Song implements Playable
 	{
 		return title + " - " + artist;
 	}
-	
-	public Clip getClip() {
+
+	public Clip getClip()
+	{
 		return clip;
 	}
 
@@ -125,7 +127,6 @@ public class Song implements Playable
 		if (clip != null && !clip.isRunning())
 		{
 			clip.start();
-			System.out.println("Resumed: " + filePath);
 		}
 	}
 
@@ -135,19 +136,21 @@ public class Song implements Playable
 		{
 			clip.stop();
 			clip.setFramePosition(0); // reset to beginning
-			System.out.println("Stopped: " + filePath);
 		}
 	}
-	
+
 	/**
 	 * Register a listener to receive song events (e.g., when playback stops).
 	 */
-	public void addSongListener(SongListener l) {
+	public void addSongListener(SongListener l)
+	{
 		if (l == null) return;
-		if (hasListener(l)) {
+		if (hasListener(l))
+		{
 			return;
 		}
-		synchronized (listeners) {
+		synchronized (listeners)
+		{
 			listeners.add(l);
 		}
 	}
@@ -155,15 +158,17 @@ public class Song implements Playable
 	/**
 	 * Remove a previously registered listener.
 	 */
-	public void removeSongListener(SongListener l) {
+	public void removeSongListener(SongListener l)
+	{
 		if (l == null) return;
-		synchronized (listeners) {
+		synchronized (listeners)
+		{
 			listeners.remove(l);
 		}
 	}
-	
-	public boolean hasListener(SongListener l) {
-		System.out.println("hasListener: "+ listeners.contains(l));
+
+	public boolean hasListener(SongListener l)
+	{
 		return listeners.contains(l);
 	}
 
@@ -171,19 +176,24 @@ public class Song implements Playable
 	 * Notify all listeners that the song stopped. A copy of the listener list
 	 * is used to avoid concurrent modification.
 	 */
-	private void notifySongStopped() {
+	private void notifySongStopped()
+	{
 		List<SongListener> copy;
-		synchronized (listeners) {
+		synchronized (listeners)
+		{
 			copy = new ArrayList<>(listeners);
 		}
-		for (SongListener l : copy) {
-			try {
+		for (SongListener l : copy)
+		{
+			try
+			{
 				l.songStopped(this);
-			} catch (Exception ex) {
+			}
+			catch (Exception ex)
+			{
 				ex.printStackTrace();
 			}
 		}
 	}
-
 
 }

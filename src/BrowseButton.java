@@ -1,23 +1,21 @@
 /**
  * Lead Author(s):
  * 
- * @author nelson; student ID
- * @author Full name; student ID
- *         <<Add additional lead authors here>>
+ * @author Nelson
+ * 
  *
  *         Other Contributors:
- *         Full name; student ID or contact information if not in class
- *         <<Add additional contributors (mentors, tutors, friends) here, with
- *         contact information>>
+ *         none
  *
  *         References:
  *         Morelli, R., & Walde, R. (2016).
  *         Java, Java, Java: Object-Oriented Problem Solving
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  *
- *         <<Add more references here>>
+ *         Responsibility:
+ *         -BrowseButton is a button that to browse file from user's computer
  *
- *         Version: 2025-10-30
+ *         Version: 2025-12-9
  */
 package src;
 
@@ -25,14 +23,12 @@ import java.awt.Dimension;
 
 import javax.swing.JButton;
 
-/**
- * Purpose: The reponsibility of BrowseButton is ...
- *
- * BrowseButton is-a ...
- * BrowseButton is ...
- */
 public class BrowseButton extends JButton
 {
+	/**
+	 * 
+	 * Purpose: Create browse Button
+	 */
 	public BrowseButton()
 	{
 		this.setText("browse");
