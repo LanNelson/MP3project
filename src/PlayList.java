@@ -1,53 +1,68 @@
 /**
  * Lead Author(s):
  * 
- * @author nelson; student ID
- * @author Full name; student ID
- *         <<Add additional lead authors here>>
+ * @author Nelson
+ * 
  *
  *         Other Contributors:
- *         Full name; student ID or contact information if not in class
- *         <<Add additional contributors (mentors, tutors, friends) here, with
- *         contact information>>
+ *         none
  *
  *         References:
  *         Morelli, R., & Walde, R. (2016).
  *         Java, Java, Java: Object-Oriented Problem Solving
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  *
- *         <<Add more references here>>
+ *         Responsibility:
+ *         -An list of song that contain all songs
  *
- *         Version: 2025-10-09
+ *         Version: 2025-12-9
  */
 package src;
 
 import java.util.ArrayList;
 
-/**
- * Purpose: The reponsibility of PlayList is ...
- *
- * PlayList is-a ...
- * PlayList is ...
- */
+import javax.swing.JOptionPane;
+
 public class PlayList implements SongList
 {
-	private ArrayList<Song> songs;
-	private Song currentSong;
-	private PlayListComboBox comboBox;
+	private ArrayList<Song> songs; // has a many songs
+	private Song currentSong; // has a Song
+	private PlayListComboBox comboBox; // has a PlayListComboBox
 
+	/**
+	 * Purpose: constructor of the PlayList creating an arryaList
+	 */
 	public PlayList()
 	{
 		songs = new ArrayList<Song>();
 	}
 
+	/**
+	 * 
+	 * Purpose: setter of comboBox
+	 * 
+	 * @param comboBox PlayListComboBox
+	 */
 	public void setComboBox(PlayListComboBox comboBox)
 	{
 		this.comboBox = comboBox;
 	}
 
+	/**
+	 * Purpose: Add song into the arrayList
+	 */
 	@Override
 	public void addSong(String fileWav)
 	{
+		if (fileWav.lastIndexOf('-') == -1 || fileWav.lastIndexOf('.') == -1
+				|| fileWav.lastIndexOf('.') < fileWav.lastIndexOf('-')
+				|| !fileWav.endsWith(".wav"))
+		{
+			JOptionPane.showMessageDialog(null,
+					"Please ensure the file name is in the format \"Title - Artist.wav\".",
+					"Invalid File Name", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
 		int lastSlash = fileWav.lastIndexOf('/');
 		int dotIndex = fileWav.lastIndexOf('.');
 		String name = fileWav.substring(lastSlash + 1, dotIndex);
@@ -58,7 +73,10 @@ public class PlayList implements SongList
 		comboBox.updateSongs();
 	}
 
-
+	/**
+	 * 
+	 * Purpose: Shuffle the songs into random order
+	 */
 	public void shuffleSongs()
 	{
 		ArrayList<Song> shuffledSongs = new ArrayList<Song>();
@@ -72,40 +90,60 @@ public class PlayList implements SongList
 		}
 		songs = shuffledSongs;
 		comboBox.updateShuffle();
+		setCurrentSong(comboBox.getSelectedSong());
 	}
 
+	/**
+	 * Purpose: getter of the arrayList
+	 */
 	@Override
 	public ArrayList<Song> getSongs()
 	{
 		return songs;
 	}
 
+	/**
+	 * 
+	 * Purpose: getting current song that is playing
+	 * 
+	 * @return song
+	 */
 	public Song getCurrentSong()
 	{
 		return currentSong;
 	}
 
+	/**
+	 * 
+	 * Purpose: getting next song in the list
+	 * 
+	 * @return song
+	 */
 	public Song getNextSong()
 	{
-		if(songs.isEmpty()) {
+		if (songs.isEmpty())
+		{
 			return null;
 		}
 		int currentIndex = songs.indexOf(currentSong);
 		int nextIndex = (currentIndex + 1) % songs.size();
 		return songs.get(nextIndex);
-		
+
 	}
 
+	/**
+	 * 
+	 * Purpose: set comboBox into next song
+	 */
 	public void next()
-	{		
+	{
 		currentSong = getNextSong();
 		int index = comboBox.getSelectedIndex();
-		System.out.println(songs.size());
 		comboBox.setSelectedIndex((index + 1) % songs.size());
 	}
 
 	/**
-	 * Purpose:
+	 * Purpose: set current song to selected Song
 	 * 
 	 * @param selectedSong
 	 */
@@ -123,26 +161,29 @@ public class PlayList implements SongList
 	}
 
 	/**
-	 * Purpose: 
+	 * Purpose: set comboBox into previous song
 	 */
 	public void previous()
 	{
-		if(songs.size()==0) {
+		if (songs.size() == 0)
+		{
 			return;
 		}
-		currentSong = getPrevousSong();
+		currentSong = getPreviousSong();
 		int index = comboBox.getSelectedIndex();
 		comboBox.setSelectedIndex((index - 1 + songs.size()) % songs.size());
-		
+
 	}
 
 	/**
-	 * Purpose: 
-	 * @return
+	 * Purpose: getting previous song in the list
+	 * 
+	 * @return song
 	 */
-	private Song getPrevousSong()
+	private Song getPreviousSong()
 	{
-		if(songs.isEmpty()) {
+		if (songs.isEmpty())
+		{
 			return null;
 		}
 		int currentIndex = songs.indexOf(currentSong);

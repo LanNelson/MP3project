@@ -1,43 +1,44 @@
 /**
  * Lead Author(s):
  * 
- * @author nelson; student ID
- * @author Full name; student ID
- *         <<Add additional lead authors here>>
+ * @author Nelson
+ * 
  *
  *         Other Contributors:
- *         Full name; student ID or contact information if not in class
- *         <<Add additional contributors (mentors, tutors, friends) here, with
- *         contact information>>
+ *         none
  *
  *         References:
  *         Morelli, R., & Walde, R. (2016).
  *         Java, Java, Java: Object-Oriented Problem Solving
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  *
- *         <<Add more references here>>
+ *         Responsibility:
+ *         -Listener of next button
  *
- *         Version: 2025-11-08
+ *         Version: 2025-12-9
  */
 package src;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Purpose: The reponsibility of NextButtonListener is ...
- *
- * NextButtonListener is-a ...
- * NextButtonListener is ...
- */
 public class NextButtonListener implements ActionListener
 {
-	private MP3PlayerView view;
-	private MP3PlayerModel model;
-	private NextButton nextButton;
-	private PlayListComboBox playListComboBox;
-	private PlayButton playButton;
+	private MP3PlayerView view; // has a MP3PlayerView
+	private MP3PlayerModel model; // has a MP3PlayerModel
+	private NextButton nextButton; // has a NextButton
+	private PlayListComboBox playListComboBox; // has a PlayListComboBox
+	private PlayButton playButton; // has a PlayButton
 
+	/**
+	 * 
+	 * Purpose: Constructor of NextButtonListener
+	 * 
+	 * @param view             view of the project
+	 * @param model            model of the project
+	 * @param nextButton
+	 * @param playListComboBox
+	 */
 	public NextButtonListener(MP3PlayerView view, MP3PlayerModel model,
 			NextButton nextButton, PlayListComboBox playListComboBox)
 	{
@@ -46,11 +47,21 @@ public class NextButtonListener implements ActionListener
 		this.nextButton = nextButton;
 		this.playListComboBox = playListComboBox;
 	}
-	
-	public void setPlayButton(PlayButton playButton) {
+
+	/**
+	 * 
+	 * Purpose: setter of playButton
+	 * 
+	 * @param playButton
+	 */
+	public void setPlayButton(PlayButton playButton)
+	{
 		this.playButton = playButton;
 	}
 
+	/**
+	 * Purpose: skip to next song whenever nextButton is being clicked
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{

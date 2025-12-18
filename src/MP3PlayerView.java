@@ -1,23 +1,21 @@
 /**
  * Lead Author(s):
  * 
- * @author nelson; student ID
- * @author Full name; student ID
- *         <<Add additional lead authors here>>
+ * @author Nelson
+ * 
  *
  *         Other Contributors:
- *         Full name; student ID or contact information if not in class
- *         <<Add additional contributors (mentors, tutors, friends) here, with
- *         contact information>>
+ *         none
  *
  *         References:
  *         Morelli, R., & Walde, R. (2016).
  *         Java, Java, Java: Object-Oriented Problem Solving
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  *
- *         <<Add more references here>>
+ *         Responsibility:
+ *         -The view of the project, creating GUI
  *
- *         Version: 2025-10-09
+ *         Version: 2025-12-9
  */
 package src;
 
@@ -30,29 +28,28 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-/**
- * Purpose: The reponsibility of MP3Player is ...
- *
- * MP3Player is-a ...
- * MP3Player is ...
- */
-public class MP3PlayerView extends JFrame
+
+public class MP3PlayerView extends JFrame // is a JFrame
 {
 
-	private SeekBar seekBar;
-	private PlayButton playButton;
-	private PreviousButton previousButton;
-	private NextButton nextButton;
-	private RandomButton randomButton;
-	private BrowseButton browseButton;
-	private PlayListComboBox playListComboBox;
-	private MP3PlayerModel model;
+	private SeekBar seekBar;  // has a seekBar
+	private PlayButton playButton; // has a PlayButton
+	private PreviousButton previousButton; // has a PreviousButton
+	private NextButton nextButton; // has a NextButton
+	private RandomButton randomButton; // has a RandomButton
+	private BrowseButton browseButton; // has a BrowseButton
+	private PlayListComboBox playListComboBox; // has a PlayListComboBox
 	private ImageIcon image;
 
+	/**
+	 * 
+	 * Purpose: Creating GUI
+	 * @param model MP3 player model
+	 * @param lib Library
+	 * @param playList PlayList
+	 */
 	public MP3PlayerView(MP3PlayerModel model, Library lib, PlayList playList)
 	{
-		this.model = model;
-
 		JPanel southPanel = new JPanel();
 		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.Y_AXIS));
 		// add buttons
@@ -60,6 +57,7 @@ public class MP3PlayerView extends JFrame
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
 		buttonPanel.setAlignmentX(CENTER_ALIGNMENT);
 
+		// Buttons
 		playButton = new PlayButton(model);
 		previousButton = new PreviousButton();
 		nextButton = new NextButton();
@@ -105,7 +103,6 @@ public class MP3PlayerView extends JFrame
 				nextButton, playListComboBox);
 		nextButton.addActionListener(nextListener);
 		nextListener.setPlayButton(playButton);
-		seekBar.setNextButton(nextButton);
 
 		PreviousButtonListener previousListener = new PreviousButtonListener(
 				this, model, previousButton, playListComboBox);

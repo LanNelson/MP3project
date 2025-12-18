@@ -1,23 +1,21 @@
 /**
  * Lead Author(s):
  * 
- * @author nelson; student ID
- * @author Full name; student ID
- *         <<Add additional lead authors here>>
+ * @author Nelson
+ * 
  *
  *         Other Contributors:
- *         Full name; student ID or contact information if not in class
- *         <<Add additional contributors (mentors, tutors, friends) here, with
- *         contact information>>
+ *         none
  *
  *         References:
  *         Morelli, R., & Walde, R. (2016).
  *         Java, Java, Java: Object-Oriented Problem Solving
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  *
- *         <<Add more references here>>
+ *         Responsibility:
+ *         -information of a song
  *
- *         Version: 2025-10-09
+ *         Version: 2025-12-9
  */
 package src;
 
@@ -29,20 +27,12 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
-/**
- * Purpose: The reponsibility of Song is ...
- *
- * Song is-a ...
- * Song is ...
- */
-public class Song implements Playable
+public class Song
 {
-	private String title;
-	private String artist;
+	private String title = null;
+	private String artist = null;
 	private String filePath;
-	private Clip clip;
-
-	// listeners for song events
+	private Clip clip; // has a Clip
 	private final List<SongListener> listeners = new ArrayList<>();
 
 	/**
@@ -54,12 +44,18 @@ public class Song implements Playable
 		void songStopped(Song song);
 	}
 
+	/**
+	 * 
+	 * Purpose: constructor of Song and loadClip to enable to play song
+	 * @param title
+	 * @param artist
+	 * @param filePath
+	 */
 	public Song(String title, String artist, String filePath)
 	{
 		this.title = title;
 		this.artist = artist;
 		this.filePath = filePath;
-
 		loadClip();
 		clip.addLineListener(e -> {
 			if (e.getType() == javax.sound.sampled.LineEvent.Type.STOP)
@@ -70,21 +66,87 @@ public class Song implements Playable
 
 	}
 
+	/**
+	 * 
+	 * Purpose: start the song
+	 */
+	public void play()
+	{
+		if (clip == null)
+		{
+			loadClip();
+		}
+		clip.start();
+	}
+
+	/**
+	 * Purpose: pause the song
+	 */
+	public void pause()
+	{
+		if (clip != null && clip.isRunning())
+		{
+			clip.stop();
+		}
+	}
+
+	/**
+	 * 
+	 * Purpose: resume the song
+	 */
+	public void resume()
+	{
+		if (clip != null && !clip.isRunning())
+		{
+			clip.start();
+		}
+	}
+
+	/**
+	 * 
+	 * Purpose: stop the song and set clip frame position to 0
+	 */
+	public void stop()
+	{
+		if (clip != null)
+		{
+			clip.stop();
+			clip.setFramePosition(0); // reset to beginning
+		}
+	}
+
+	/**
+	 * 
+	 * Purpose: getter of song 
+	 * @return the path of the song
+	 */
 	public String getSong()
 	{
 		return filePath;
 	}
 
+	/**
+	 * @return song title and artist
+	 */
 	public String toString()
 	{
 		return title + " - " + artist;
 	}
 
+	/**
+	 * 
+	 * Purpose: getter of the clip
+	 * @return clip
+	 */
 	public Clip getClip()
 	{
 		return clip;
 	}
 
+	/**
+	 * 
+	 * Purpose: add clip to the song
+	 */
 	private void loadClip()
 	{
 		try
@@ -101,46 +163,8 @@ public class Song implements Playable
 		}
 	}
 
-	@Override
-	public void play()
-	{
-		if (clip == null)
-		{
-			loadClip();
-		}
-		clip.start();
-	}
-
 	/**
-	 * Purpose:
-	 */
-	public void pause()
-	{
-		if (clip != null && clip.isRunning())
-		{
-			clip.stop();
-		}
-	}
-
-	public void resume()
-	{
-		if (clip != null && !clip.isRunning())
-		{
-			clip.start();
-		}
-	}
-
-	public void stop()
-	{
-		if (clip != null)
-		{
-			clip.stop();
-			clip.setFramePosition(0); // reset to beginning
-		}
-	}
-
-	/**
-	 * Register a listener to receive song events (e.g., when playback stops).
+	 * Register a listener to receive song events
 	 */
 	public void addSongListener(SongListener l)
 	{
@@ -167,6 +191,12 @@ public class Song implements Playable
 		}
 	}
 
+	/**
+	 * 
+	 * Purpose: check if listener is created
+	 * @param l songListener
+	 * @return
+	 */
 	public boolean hasListener(SongListener l)
 	{
 		return listeners.contains(l);

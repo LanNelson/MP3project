@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 
 public class Library implements SongList
 {
@@ -50,7 +51,7 @@ public class Library implements SongList
 			}
 		}
 	}
-	
+
 	/**
 	 * Purpose: adding songs into a text file
 	 */
@@ -58,7 +59,14 @@ public class Library implements SongList
 	public void addSong(String fileWav)
 	{
 		createNewSerialNumber();
-		
+
+		if (fileWav.lastIndexOf('-') == -1 || fileWav.lastIndexOf('.') == -1
+				|| fileWav.lastIndexOf('.') < fileWav.lastIndexOf('-')
+				|| !fileWav.endsWith(".wav"))
+		{
+			return;
+		}
+
 		int lastSlash = fileWav.lastIndexOf('/');
 		int dotIndex = fileWav.lastIndexOf('.');
 		String name = fileWav.substring(lastSlash + 1, dotIndex);
@@ -72,7 +80,8 @@ public class Library implements SongList
 
 	/**
 	 * 
-	 * Purpose: 
+	 * Purpose: create text file
+	 * 
 	 * @param fileWav
 	 */
 	public void addSongToFile(String fileWav)
@@ -90,14 +99,22 @@ public class Library implements SongList
 			System.out.println(e);
 		}
 	}
-	
+
+	/**
+	 * 
+	 * Purpose: unique serial number
+	 * 
+	 * @return serial number
+	 */
 	public static int createNewSerialNumber()
 	{
 		seiralNum++;
 		return seiralNum;
 	}
 
-	
+	/**
+	 * @return List of songs
+	 */
 	@Override
 	public ArrayList<Song> getSongs()
 	{

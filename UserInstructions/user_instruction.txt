@@ -1,0 +1,6 @@
+To add song to MP3 player play list, follow these steps:
+
+Method 1. Use browse button on the top browse through existing wav files in folder.
+
+Method 2. Browse song from out side (only wav is supported),
+and please rename the file into the format of "title-artist"

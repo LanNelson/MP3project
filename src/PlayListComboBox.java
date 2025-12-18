@@ -1,23 +1,21 @@
 /**
  * Lead Author(s):
  * 
- * @author nelson; student ID
- * @author Full name; student ID
- *         <<Add additional lead authors here>>
+ * @author Nelson
+ * 
  *
  *         Other Contributors:
- *         Full name; student ID or contact information if not in class
- *         <<Add additional contributors (mentors, tutors, friends) here, with
- *         contact information>>
+ *         none
  *
  *         References:
  *         Morelli, R., & Walde, R. (2016).
  *         Java, Java, Java: Object-Oriented Problem Solving
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  *
- *         <<Add more references here>>
+ *         Responsibility:
+ *         -A comboBox that has contains songs in playList
  *
- *         Version: 2025-10-16
+ *         Version: 2025-12-9
  */
 package src;
 
@@ -27,18 +25,20 @@ import java.awt.event.ActionListener;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 
-/**
- * Purpose: The reponsibility of LibraryComboBox is ...
- *
- * LibraryComboBox is-a ...
- * LibraryComboBox is ...
- */
-public class PlayListComboBox extends JComboBox implements ActionListener
-{
-	private Library lib;
-	private PlayList playList;
-	private MP3PlayerModel model;
 
+public class PlayListComboBox extends JComboBox implements ActionListener // is a JComboBox
+{
+	private Library lib; // has Library
+	private PlayList playList; //has PlayList
+	private MP3PlayerModel model; // has MP3PlayerModel
+
+	/**
+	 * 
+	 * Purpose: constructor of PlayListComboBox
+	 * @param lib
+	 * @param playList
+	 * @param model
+	 */
 	public PlayListComboBox(Library lib, PlayList playList,
 			MP3PlayerModel model)
 	{
@@ -49,11 +49,6 @@ public class PlayListComboBox extends JComboBox implements ActionListener
 		this.setMaximumSize(new java.awt.Dimension(200, 30));
 		this.setPreferredSize(new java.awt.Dimension(200, 30));
 		this.setFocusable(false);
-
-		for (int i = 0; i < playList.getSongs().size(); i++)
-		{
-			this.addItem(playList.getSongs().get(i));
-		}
 
 		addActionListener(this);
 	}

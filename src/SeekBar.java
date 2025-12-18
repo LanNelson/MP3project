@@ -1,23 +1,21 @@
 /**
  * Lead Author(s):
  * 
- * @author nelson; student ID
- * @author Full name; student ID
- *         <<Add additional lead authors here>>
+ * @author Nelson
+ * 
  *
  *         Other Contributors:
- *         Full name; student ID or contact information if not in class
- *         <<Add additional contributors (mentors, tutors, friends) here, with
- *         contact information>>
+ *         none
  *
  *         References:
  *         Morelli, R., & Walde, R. (2016).
  *         Java, Java, Java: Object-Oriented Problem Solving
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  *
- *         <<Add more references here>>
+ *         Responsibility:
+ *         -seekBar of the MP3 player
  *
- *         Version: 2025-10-09
+ *         Version: 2025-12-9
  */
 package src;
 
@@ -30,19 +28,16 @@ import javax.swing.JSlider;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
-/**
- * Purpose: The reponsibility of SeekBar is ...
- *
- * SeekBar is-a JSlider
- * SeekBar is ...
- */
-public class SeekBar extends JSlider
-{
-	private Clip clip;
-	private Timer timer;
-	private long totalLengthMicro;
-	private NextButton nextButton;
 
+public class SeekBar extends JSlider // is a JSlider
+{
+	private Clip clip; // has a Clip
+	private Timer timer; // has a Timer
+
+	/**
+	 * 
+	 * Purpose: set the size of seekBar
+	 */
 	public SeekBar()
 	{
 		this.setOrientation(SwingConstants.HORIZONTAL);
@@ -52,23 +47,28 @@ public class SeekBar extends JSlider
 
 	}
 
-	public void setNextButton(NextButton nextButton)
-	{
-		this.nextButton = nextButton;
-	}
+	
 
+	/**
+	 * 
+	 * Purpose: setter of clip
+	 * @param clip
+	 */
 	public void setClip(Clip clip)
 	{
 		this.clip = clip;
 
 		if (clip != null)
 		{
-			totalLengthMicro = clip.getMicrosecondLength();
 			this.setMaximum((int) clip.getMicrosecondLength());
 			startSync();
 		}
 	}
 
+	/**
+	 * 
+	 * Purpose: keep updating the GUI
+	 */
 	public void startSync()
 	{
 		if (timer != null)
@@ -86,11 +86,6 @@ public class SeekBar extends JSlider
 				{
 					int currentPos = (int) clip.getMicrosecondPosition();
 
-					if (currentPos >= totalLengthMicro)
-					{
-						nextButton.doClick();
-					}
-
 					SwingUtilities.invokeLater(() -> {
 						setValue(currentPos);
 					});
@@ -99,6 +94,10 @@ public class SeekBar extends JSlider
 		}, 0, 200);
 	}
 
+	/**
+	 * 
+	 * Purpose:stop updating the GUI
+	 */
 	public void stopSync()
 	{
 		if (timer != null)
@@ -108,6 +107,10 @@ public class SeekBar extends JSlider
 		}
 	}
 
+	/**
+	 * 
+	 * Purpose: enable user to drag seek bar, to seek through to song
+	 */
 	public void enableUserSeek()
 	{
 		this.addChangeListener(e -> {
@@ -116,12 +119,5 @@ public class SeekBar extends JSlider
 				clip.setMicrosecondPosition(getValue());
 			}
 		});
-	}
-
-	public void reset()
-	{
-		stopSync();
-		this.setValue(0);
-		this.clip = null;
 	}
 }

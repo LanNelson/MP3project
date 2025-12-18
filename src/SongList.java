@@ -1,36 +1,40 @@
 /**
-* Lead Author(s):
-* @author nelson; student ID
-* @author Full name; student ID
-* <<Add additional lead authors here>>
-*
-* Other Contributors:
-* Full name; student ID or contact information if not in class
-* <<Add additional contributors (mentors, tutors, friends) here, with contact information>>
-*
-* References:
-* Morelli, R., & Walde, R. (2016).
-* Java, Java, Java: Object-Oriented Problem Solving
-* https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
-*
-* <<Add more references here>>
-*
-* Version: 2025-10-30
-*/
+ * Lead Author(s):
+ * 
+ * @author Nelson
+ * 
+ *
+ *         Other Contributors:
+ *         none
+ *
+ *         References:
+ *         Morelli, R., & Walde, R. (2016).
+ *         Java, Java, Java: Object-Oriented Problem Solving
+ *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ *
+ *         Responsibility:
+ *         -an interface of list of song
+ *
+ *         Version: 2025-12-9
+ */
 package src;
 
 import java.util.List;
 
-/**
- * Purpose: The reponsibility of SongList is ...
- *
- * SongList is-a ...
- * SongList is ...
- */
+
 public interface SongList
 {
-	
+	/**
+	 * 
+	 * Purpose: add song into list
+	 * @param fileWav
+	 */
 	public void addSong(String fileWav);
 	
+	/**
+	 * 
+	 * Purpose: getter of list
+	 * @return list
+	 */
 	public List<Song> getSongs();
 }

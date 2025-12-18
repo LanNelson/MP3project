@@ -23,7 +23,7 @@ import java.awt.Dimension;
 
 import javax.swing.JButton;
 
-public class BrowseButton extends JButton
+public class BrowseButton extends JButton // is a JButton
 {
 	/**
 	 * 

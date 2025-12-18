@@ -1,33 +1,27 @@
 /**
-* Lead Author(s):
-* @author nelson; student ID
-* @author Full name; student ID
-* <<Add additional lead authors here>>
-*
-* Other Contributors:
-* Full name; student ID or contact information if not in class
-* <<Add additional contributors (mentors, tutors, friends) here, with contact information>>
-*
-* References:
-* Morelli, R., & Walde, R. (2016).
-* Java, Java, Java: Object-Oriented Problem Solving
-* https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
-*
-* <<Add more references here>>
-*
-* Version: 2025-11-13
-*/
+ * Lead Author(s):
+ * 
+ * @author Nelson
+ * 
+ *
+ *         Other Contributors:
+ *         none
+ *
+ *         References:
+ *         Morelli, R., & Walde, R. (2016).
+ *         Java, Java, Java: Object-Oriented Problem Solving
+ *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ *
+ *         Responsibility:
+ *         -Listener of random button
+ *         
+ *         Version: 2025-12-9
+ */
 package src;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Purpose: The reponsibility of RamdomButtonListener is ...
- *
- * RamdomButtonListener is-a ...
- * RamdomButtonListener is ...
- */
 public class RandomButtonListener implements ActionListener
 {
 	
@@ -36,6 +30,14 @@ public class RandomButtonListener implements ActionListener
 	private RandomButton randomButton;
 	private PlayList playList;
 	
+	/**
+	 * 
+	 * Purpose: constructor of randomButtonListener
+	 * @param view
+	 * @param model
+	 * @param randomButton
+	 * @param playList
+	 */
 	public RandomButtonListener(MP3PlayerView view, MP3PlayerModel model,
 			RandomButton randomButton, PlayList playList)
 	{
@@ -45,6 +47,9 @@ public class RandomButtonListener implements ActionListener
 		this.playList = playList;
 	}
 
+	/**
+	 * Purpose: make action whenever randomButton is being clicked
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{

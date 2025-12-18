@@ -1,42 +1,43 @@
 /**
  * Lead Author(s):
  * 
- * @author nelson; student ID
- * @author Full name; student ID
- *         <<Add additional lead authors here>>
+ * @author Nelson
+ * 
  *
  *         Other Contributors:
- *         Full name; student ID or contact information if not in class
- *         <<Add additional contributors (mentors, tutors, friends) here, with
- *         contact information>>
+ *         none
  *
  *         References:
  *         Morelli, R., & Walde, R. (2016).
  *         Java, Java, Java: Object-Oriented Problem Solving
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  *
- *         <<Add more references here>>
+ *         Responsibility:
+ *         -make action once the play button being clicked
  *
- *         Version: 2025-10-14
+ *         Version: 2025-12-9
  */
 package src;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Purpose: The reponsibility of ButtonListener is ...
- *
- * ButtonListener is-a ...
- * ButtonListener is ...
- */
 public class PlayButtonListener implements ActionListener
 {
-	private MP3PlayerView view;
-	private MP3PlayerModel model;
-	private PlayButton playButton;
-	private PlayListComboBox playListComboBox;
+	private MP3PlayerView view; // has MP3PlayerView
+	private MP3PlayerModel model; // has MP3PlayerModel
+	private PlayButton playButton; // has PlayButton
+	private PlayListComboBox playListComboBox; // has PlayListComboBox
 
+	/**
+	 * 
+	 * Purpose: Constructor of PlayButtonListener
+	 * 
+	 * @param view             view of the project
+	 * @param model            model of the project
+	 * @param playButton
+	 * @param playListComboBox
+	 */
 	public PlayButtonListener(MP3PlayerView view, MP3PlayerModel model,
 			PlayButton playButton, PlayListComboBox playListComboBox)
 	{
@@ -46,6 +47,9 @@ public class PlayButtonListener implements ActionListener
 		this.playListComboBox = playListComboBox;
 	}
 
+	/**
+	 * Purpose: play the song
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
@@ -64,13 +68,13 @@ public class PlayButtonListener implements ActionListener
 			default:
 				break;
 		}
-		
+
 		updateView();
 
 	}
 
 	/**
-	 * Purpose: 
+	 * Purpose: update the text on playButton
 	 */
 	private void updateView()
 	{
@@ -86,6 +90,6 @@ public class PlayButtonListener implements ActionListener
 				playButton.setText("Play");
 			default:
 				break;
-		}		
+		}
 	}
 }
