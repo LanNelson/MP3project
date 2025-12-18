@@ -58,7 +58,6 @@ public class Library implements SongList
 	@Override
 	public void addSong(String fileWav)
 	{
-		createNewSerialNumber();
 
 		if (fileWav.lastIndexOf('-') == -1 || fileWav.lastIndexOf('.') == -1
 				|| fileWav.lastIndexOf('.') < fileWav.lastIndexOf('-')
@@ -66,6 +65,8 @@ public class Library implements SongList
 		{
 			return;
 		}
+		
+		createNewSerialNumber();
 
 		int lastSlash = fileWav.lastIndexOf('/');
 		int dotIndex = fileWav.lastIndexOf('.');
